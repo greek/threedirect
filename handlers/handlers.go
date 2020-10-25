@@ -1,11 +1,15 @@
 package handlers
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 )
+
+var j = []byte(`{"h":{ "source": "https://apap04.com" } }`)
 
 // NotFound handles the fact that pages don't exist.
 func NotFound(w http.ResponseWriter, r *http.Request) {
@@ -24,5 +28,15 @@ func CreateLink(w http.ResponseWriter, r *http.Request) {
 func GetLink(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	slug := vars["id"]
-	http.Redirect(w, r, "https://apap04.com", 301)
+
+	var info map[string]interface{}
+	if info != nil {
+		fmt.Print("Route not found")
+	}
+
+	json.Unmarshal([]byte(j), &info)
+
+	fmt.Println(info[slug].(map[string]interface{})["source"])
+	w.Write([]byte(""))
+
 }
