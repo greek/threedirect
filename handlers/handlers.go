@@ -2,14 +2,13 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
+	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 )
-
-var j = []byte(`{"h":{ "source": "https://apap04.com" } }`)
 
 // NotFound handles the fact that pages don't exist.
 func NotFound(w http.ResponseWriter, r *http.Request) {
@@ -18,8 +17,7 @@ func NotFound(w http.ResponseWriter, r *http.Request) {
 	log.Trace("Hi")
 }
 
-// CreateLink will either create a new link, or redirect to the link
-// based on the method g.iven
+// CreateLink will create a new shortlink.
 func CreateLink(w http.ResponseWriter, r *http.Request) {
 
 }
@@ -29,14 +27,17 @@ func GetLink(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	slug := vars["id"]
 
-	var info map[string]interface{}
-	if info != nil {
-		fmt.Print("Route not found")
+	jsonfile, err := os.Open("handlers/db.json")
+	if err != nil {
+		log.Error(err)
 	}
 
-	json.Unmarshal([]byte(j), &info)
+	file, _ := ioutil.ReadAll(jsonfile)
+
+	var info map[string]interface{}
+	json.Unmarshal([]byte(file), &info)
 
 	var result = info[slug].(map[string]interface{})["source"]
-	http.Redirect(w, r, result.(string), 301)
+	http.Redirect(w, r, result.(string), 302)
 
 }
