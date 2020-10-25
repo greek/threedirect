@@ -1,0 +1,19 @@
+{
+  // Suggested vscode default settings for simplifying initial setup. These
+  // settings are hoped to be convenient and helpful for those beginning to use
+  // vscode with Chrome. Please modify and change as necessary.
+  // All settings are optional, but some more "optional" settings at the end
+  // are disabled by default. Feel free to enable them.
+
+  // Do not figure out tab size from opening a file.
+  "editor.detectIndentation": false,
+  // Add a line at 80 characters.
+  "editor.rulers": [80],
+  // Forces LF instead of "auto" which uses CRLF on Windows.
+  "files.eol": "\n",
+  // Trim tailing whitespace on save.
+  "files.trimTrailingWhitespace": true,
+  // Insert trimmed final new line.
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+}

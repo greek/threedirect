@@ -27,7 +27,7 @@ func GetLink(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	slug := vars["id"]
 
-	jsonfile, err := os.Open("handlers/db.json")
+	jsonfile, err := os.Open("db.json")
 	if err != nil {
 		log.Error(err)
 	}
