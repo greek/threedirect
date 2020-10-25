@@ -36,7 +36,7 @@ func GetLink(w http.ResponseWriter, r *http.Request) {
 
 	json.Unmarshal([]byte(j), &info)
 
-	fmt.Println(info[slug].(map[string]interface{})["source"])
-	w.Write([]byte(""))
+	var result = info[slug].(map[string]interface{})["source"]
+	http.Redirect(w, r, result.(string), 301)
 
 }
