@@ -2,6 +2,7 @@ package utils
 
 import (
 	"net/http"
+	"os"
 )
 
 // GetIP gets the user IP from X-Forwarded-For header
@@ -22,4 +23,15 @@ func EnableCors(w http.ResponseWriter) {
 // SetJSON sets content type to json
 func SetJSON(w http.ResponseWriter) {
 	w.Header().Add("Content-Type", "application/json")
+}
+
+func CheckFile(filename string) error {
+	_, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		_, err := os.Create(filename)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

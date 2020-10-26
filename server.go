@@ -24,6 +24,7 @@ func main() {
 	r.Use(config.Headers)
 
 	r.HandleFunc("/{id}", handlers.GetLink).Methods("GET")
+	r.HandleFunc("/api/create", handlers.CreateLink).Methods("POST")
 
 	var port = "8080"
 	if os.Getenv("PORT") != "" {

@@ -1,5 +1,10 @@
-{
-    "a": {
-        "source": "https://apap04.com"
+[
+    {
+        "id": "a",
+        "url": "https://apap04.com"
+    },
+    {
+        "id": "b",
+        "url": "https://apap04.com"
     }
-}
+]
