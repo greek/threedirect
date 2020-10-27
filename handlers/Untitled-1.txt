@@ -1,0 +1,6 @@
+IDs are structured as is:
+
+Link struct that holds an ID
+
+That ID holds a link and shortname. We'll take that and use it inside
+GetLink. ez

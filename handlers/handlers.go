@@ -10,10 +10,12 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type Link struct {
-	ID  string `json:""`
-	URL string `json:"url"`
-}
+// Link represents the shortlink
+type (
+	Link struct {
+		URL string `json:"source"`
+	}
+)
 
 // NotFound handles the fact that pages don't exist.
 func NotFound(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +36,6 @@ func CreateLink(w http.ResponseWriter, r *http.Request) {
 	data := []Link{}
 	json.Unmarshal(file, &data)
 	linkStruct := &Link{
-		ID:  "a",
 		URL: "https://apap04.com",
 	}
 
@@ -67,7 +68,7 @@ func GetLink(w http.ResponseWriter, r *http.Request) {
 	var info map[string]interface{}
 	json.Unmarshal([]byte(file), &info)
 
-	var result = info[slug].(map[string]interface{})["source"]
+	var result = info["id"].(map[string]interface{})[slug]
 	http.Redirect(w, r, result.(string), 302)
 
 }
