@@ -26,6 +26,8 @@ func NotFound(w http.ResponseWriter, r *http.Request) {
 
 // CreateLink will create a new shortlink.
 func CreateLink(w http.ResponseWriter, r *http.Request) {
+	// convert to json!
+
 	filename := "db.json"
 
 	file, err := ioutil.ReadFile(filename)
@@ -68,7 +70,7 @@ func GetLink(w http.ResponseWriter, r *http.Request) {
 	var info map[string]interface{}
 	json.Unmarshal([]byte(file), &info)
 
-	var result = info["id"].(map[string]interface{})[slug]
+	var result = info[slug].(map[string]interface{})["link"]
 	http.Redirect(w, r, result.(string), 302)
 
 }
