@@ -4,7 +4,10 @@ go 1.15
 
 replace apap04.com/server/utils => ../utils
 
+replace apap04.com/server/models => ../models
+
 require (
+	// apap04.com/server/models v0.0.0-00010101000000-000000000000
 	apap04.com/server/utils v0.0.0-00010101000000-000000000000
 	github.com/gorilla/mux v1.8.0
 	github.com/rs/xid v1.2.1
