@@ -1,3 +1,4 @@
 # binaries
 *.exe
 *.exe~
+.fuse_hidden*
