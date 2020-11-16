@@ -28,13 +28,12 @@ func GetLink(w http.ResponseWriter, r *http.Request) {
 
 	db, _ := ioutil.ReadAll(jsonfile)
 
-	var link Link
-	json.Unmarshal(db, &link)
+	var m []Link
+	json.Unmarshal(db, &m)
 
-	if link.Id == slug {
-		http.Redirect(w, r, link.Url, 301)
-	} else {
-		w.WriteHeader(404)
-		w.Write([]byte("this link doesn't exist."))
+	for _, link := range m {
+		if link.Id == slug {
+			http.Redirect(w, r, link.Url, 301)
+		}
 	}
 }
