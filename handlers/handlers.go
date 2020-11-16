@@ -1,71 +1,39 @@
 package handlers
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"net/http"
-	"os"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/gorilla/mux"
 )
 
-// NotFound handles the fact that pages don't exist.
-func NotFound(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotFound)
-	w.Write([]byte("Route not found"))
-	log.Trace("Hi")
+// Link represents a link
+type Link struct {
+	Id  string `json:"id"`
+	Url string `json:"url"`
 }
-
-// // CreateLink will create a new shortlink.
-// func CreateLink(w http.ResponseWriter, r *http.Request) {
-// 	// convert to json!
-
-// 	filename := "db.json"
-
-// 	file, err := ioutil.ReadFile(filename)
-// 	if err != nil {
-// 		log.Error(err)
-// 	}
-
-// 	data := []models.Link{}
-// 	json.Unmarshal(file, &data)
-// 	// linkStruct := &models.Link{
-// 	// 	Name: "https://apap04.com",
-// 	// }
-
-// 	data = append(data, *linkStruct)
-
-// 	// Preparing the data to be marshalled and written.
-// 	dataBytes, err := json.Marshal(data)
-// 	if err != nil {
-// 		log.Error(err)
-// 	}
-
-// 	err = ioutil.WriteFile(filename, dataBytes, 0644)
-// 	if err != nil {
-// 		log.Error(err)
-// 	}
-// }
 
 // GetLink will redirect the user to the link.
 func GetLink(w http.ResponseWriter, r *http.Request) {
-	// vars := mux.Vars(r)
-	// slug := vars["id"]
+	var Links []Link
 
-	jsonfile, err := os.Open("db.json")
-	if err != nil {
-		log.Error(err)
+	Links = []Link{
+		Link{Id: "H", Url: "https://apap04.com"},
+		Link{Id: "goog", Url: "https://google.com"},
 	}
 
-	file, _ := ioutil.ReadAll(jsonfile)
+	vars := mux.Vars(r)
+	slug := vars["id"]
 
-	var info map[string]interface{}
-	err = json.Unmarshal([]byte(file), &info)
-	if err != nil {
-		log.Error("panic")
+	// jsonfile, err := os.Open("db.json")
+	// if err != nil {
+	// 	log.Error(err)
+	// }
+
+	// Link, _ := ioutil.ReadAll(jsonfile)
+
+	for _, link := range Links {
+		if link.Id == slug {
+			http.Redirect(w, r, link.Url, 301)
+		}
 	}
-
-	var result = info
-	fmt.Println(result)
 }
