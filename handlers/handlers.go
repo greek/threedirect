@@ -1,7 +1,11 @@
 package handlers
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -14,26 +18,23 @@ type Link struct {
 
 // GetLink will redirect the user to the link.
 func GetLink(w http.ResponseWriter, r *http.Request) {
-	var Links []Link
-
-	Links = []Link{
-		Link{Id: "H", Url: "https://apap04.com"},
-		Link{Id: "goog", Url: "https://google.com"},
-	}
-
 	vars := mux.Vars(r)
 	slug := vars["id"]
 
-	// jsonfile, err := os.Open("db.json")
-	// if err != nil {
-	// 	log.Error(err)
-	// }
+	jsonfile, err := os.Open("db.json")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// Link, _ := ioutil.ReadAll(jsonfile)
+	db, _ := ioutil.ReadAll(jsonfile)
 
-	for _, link := range Links {
-		if link.Id == slug {
-			http.Redirect(w, r, link.Url, 301)
-		}
+	var link Link
+	json.Unmarshal(db, &link)
+
+	if link.Id == slug {
+		http.Redirect(w, r, link.Url, 301)
+	} else {
+		w.WriteHeader(404)
+		w.Write([]byte("this link doesn't exist."))
 	}
 }
