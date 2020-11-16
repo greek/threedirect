@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	log "github.com/sirupsen/logrus"
 
@@ -21,9 +22,9 @@ func main() {
 	// r.HandleFunc("/api/create", handlers.CreateLink).Methods("POST")
 
 	var port = "3337"
-	// if os.Getenv("PORT") != "" {
-	// 	port = os.Getenv("PORT")
-	// }
+	if os.Getenv("PORT") != "" {
+		port = os.Getenv("PORT")
+	}
 
 	fmt.Print("listening on port " + port + "\n")
 	log.Fatal(http.ListenAndServe(":"+port, r))
