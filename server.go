@@ -14,11 +14,12 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-	// r.NotFoundHandler = http.HandlerFunc(handlers.NotFound)
+	r.NotFoundHandler = http.HandlerFunc(handlers.NotFound)
 
 	r.Use(config.Headers)
 
 	r.HandleFunc("/{id}", handlers.GetLink).Methods("GET")
+	r.HandleFunc("/api/id/{id}", handlers.ReturnLink).Methods("GET")
 	// r.HandleFunc("/api/create", handlers.CreateLink).Methods("POST")
 
 	var port = "3337"
