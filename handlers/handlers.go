@@ -23,7 +23,7 @@ func NotFound(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Slug not found."))
 }
 
-// CreateLink will create a link and add it to the database.
+// CreateLink will create a link and add it to the database. Broken.
 func CreateLink(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 

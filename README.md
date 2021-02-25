@@ -8,4 +8,8 @@ no
 
 ## Is it production ready?
 
-what does that mean??? no
+no
+
+## why is it named "threedirector"
+
+don't ask me /shrug

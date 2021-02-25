@@ -25,8 +25,7 @@ func SetJSON(w http.ResponseWriter) {
 	w.Header().Add("Content-Type", "application/json")
 }
 
-// CheckFile checks if the file exists or not.
-// If not, the function will create the file.
+// CheckFile checks if the file exists or not. If not, the function will create the file.
 func CheckFile(filename string) error {
 	_, err := os.Stat(filename)
 	if os.IsNotExist(err) {
